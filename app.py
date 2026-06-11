@@ -2,10 +2,11 @@ from fastapi import FastAPI
 import joblib
 import numpy as np
 
-
 app = FastAPI()
 
 # Load model
+# Load model onother
+
 model = joblib.load("bank_model.pkl")
 
 # Root test endpoint
