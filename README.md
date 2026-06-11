@@ -5,9 +5,7 @@ This repository contains a simple machine learning pipeline and FastAPI service 
 - `transactions.csv` - raw transaction data used to build the model
 - `train.py` - training script that reads CSV data, aggregates customer transactions, trains an XGBoost classifier, and saves `bank_model.pkl`
 - `app.py` - FastAPI application that loads the saved model and exposes a prediction endpoint
-
 ## Requirements
-
 - Python 3.10+ (or compatible)
 - `venv` or another virtual environment tool
 
