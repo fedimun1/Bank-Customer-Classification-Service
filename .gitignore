@@ -1,0 +1,15 @@
+# Data files
+transactions.csv
+
+# Optional: all CSV files
+# *.csv
+
+# Python virtual environment
+venv/
+
+# Trained models (optional)
+bank_model.pkl
+
+# Python cache
+__pycache__/
+*.pyc
