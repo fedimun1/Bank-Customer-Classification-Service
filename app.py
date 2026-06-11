@@ -11,7 +11,7 @@ model = joblib.load("bank_model.pkl")
 # Root test endpoint
 @app.get("/")
 def home():
-    return {"message": "Bank ML Model API is running"}
+    return {"return message": "Bank ML Model API is running"}
 
 # Prediction endpoint
 @app.post("/predict")
@@ -30,7 +30,6 @@ def predict(data: dict):
         ]])
 
         prediction = model.predict(features)[0]
-
         return {
             "prediction": int(prediction),
             "result": "High Spender" if prediction == 1 else "Normal Customer"
