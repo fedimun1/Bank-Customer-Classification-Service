@@ -22,6 +22,8 @@ agg = data.groupby("AC_NO").agg({
     "RUN_BAL": "last"
 })
 
+
+# columns that used to be multi-index after aggregation, we flatten them for easier access
 # flatten columns
 agg.columns = [
     "total_amount",
