@@ -90,3 +90,19 @@ The API will be available at `http://127.0.0.1:8000`.
 - The model depends on `bank_model.pkl` being present in the repository root.
 - If `bank_model.pkl` is missing, run `python train.py` first.
 - The classification label is derived from whether `total_debit` is above the median value in the dataset.
+
+inside the project
+
+source venv/bin/activate
+pip install fastapi uvicorn joblib numpy pandas scikit-learn xgboost tensorflow
+python train.py
+
+# created bank_model.pkl
+
+python train_nn.py
+
+# nn_model.h5
+
+# scaler.pkl
+
+uvicorn app:app --reload

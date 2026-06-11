@@ -1,40 +1,52 @@
 from fastapi import FastAPI
 import joblib
 import numpy as np
-
+import tensorflow as tf
 
 app = FastAPI()
 
-# Load model
-model = joblib.load("bank_model.pkl")
+xgb_model = joblib.load("bank_model.pkl")
+nn_model = tf.keras.models.load_model("nn_model.h5")
+scaler = joblib.load("scaler.pkl")
 
-# Root test endpoint
-@app.get("/")
-def home():
-    return {"message": "Bank ML Model API is running"}
+@app.post("/predict/xgb")
+def predict_xgb(data: dict):
+    features = np.array([[ 
+        data["total_amount"],
+        data["avg_amount"],
+        data["txn_count"],
+        data["total_credit"],
+        data["total_debit"],
+        data["last_balance"]
+    ]])
 
-# Prediction endpoint
-@app.post("/predict")
-def predict(data: dict):
-    try:
-        # expected input:
-        # total_amount, avg_amount, txn_count, total_credit, total_debit, last_balance
+    pred = xgb_model.predict(features)[0]
 
-        features = np.array([[
-            data["total_amount"],
-            data["avg_amount"],
-            data["txn_count"],
-            data["total_credit"],
-            data["total_debit"],
-            data["last_balance"]
-        ]])
+    return {
+        "model": "XGBoost",
+        "prediction": int(pred)
+    }
 
-        prediction = model.predict(features)[0]
 
-        return {
-            "prediction": int(prediction),
-            "result": "High Spender" if prediction == 1 else "Normal Customer"
-        }
+@app.post("/predict/nn")
+def predict_nn(data: dict):
+    features = np.array([[
+        data["total_amount"],
+        data["avg_amount"],
+        data["txn_count"],
+        data["total_credit"],
+        data["total_debit"],
+        data["last_balance"]
+    ]])
 
-    except Exception as e:
-        return {"error": str(e)}
+    features = scaler.transform(features)
+    pred = nn_model.predict(features)[0][0]
+    lable = 1 if pred > 0.5 else 0
+    result_text = "High Spending Customer" if lable == 1 else "Low Spending Customer"
+
+    return {
+        "model": "Neural Network",
+        "prediction": lable,
+            "result": result_text
+    }
+  
