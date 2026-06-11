@@ -1,7 +1,5 @@
 # Bank ML
-
 This repository contains a simple machine learning pipeline and FastAPI service for classifying bank customers into `High Spender` or `Normal Customer` categories.
-
 ## Project Structure
 
 - `transactions.csv` - raw transaction data used to build the model
@@ -82,7 +80,6 @@ The API will be available at `http://127.0.0.1:8000`.
   "result": "High Spender"
 }
 ```
-
 ## Notes
 
 - The model depends on `bank_model.pkl` being present in the repository root.
