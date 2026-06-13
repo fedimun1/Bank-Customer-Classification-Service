@@ -1,5 +1,7 @@
 <!-- using python 3 -->
 
+this create amodel within million record
+
 # Bank ML
 This repository contains a simple machine learning pipeline and FastAPI service for classifying bank customers into `High Spender` or `Normal Customer` categories.
 ## Project Structure
